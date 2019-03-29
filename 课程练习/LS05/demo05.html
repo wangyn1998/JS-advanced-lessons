@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+//JS赋值运算
+
+//=与==
+//==发生隐式类型转换
+//===先判断类型再判断值
+	var a1 = 45;
+	if(a1 = 45){
+		console.log("hi");
+	}
+
+	// var a2 = 34;
+	// if(45 = a2){
+	// 	console.log("hi");
+	// }//报错
+
+	var a3 = 34;
+	if(45 == a3){
+		console.log("hi");
+	}
+
+	var a4 = 20;
+	var a5 = "20";
+	if(a4 == a5){
+		console.log("hi");
+	}
+
+//JS算数运算符
+
+//算数运算符与类型转换
+	console.log(1+{});//1[object Object]"
+	console.log("1"+5);//15
+	console.log("5"-4);
+
+//一元运算符（++、--）
+//++和--的隐式类型转换
+	var x = "1";
+	console.log(++x);//2
+	console.log(x++);//2
+//+=字符串拼接
+	var y = "1"
+	console.log(y+=1);//11
+
+//JS关系运算符
+
+//==与===
+	console.log(3 ===3);//true
+	console.log(NaN ===NaN);//false
+	console.log({} ==={});//false
+
+//!=与!==
+//!=（相当于==的逆运算）
+//!==（先判断类型，若类型不同则返回true，相当于===的逆运算）
+
+
+
+//JS逻辑运算符
+
+//&&与| |运算符两边的操作数都是布尔类型
+
+//对于&&来说， 除了两侧都为真时为真，其他情况都为假
+//对于 | | 来说，除了两侧都为假时为假，其他情况都为真
+	console.log(2>1&&4<5);//T
+	console.log(true&&(!2));//F
+	console.log(false&&("2" == 2));//F
+	console.log(false&&false);//F
+
+	console.log(2>1||4<5);//T
+	console.log(true||(!2));//T
+	console.log(false||("2" == 2));//T
+	console.log(false||false);//F
+
+//&&与||运算符两边为非布尔类型
+
+//首先将左操作数转换成布尔类型
+//对转换后的左操作数进行逻辑判断（true or false）
+//根据短路原则返回原始左操作数或原始右操作数
+
+//短路原则
+//对于&&，转换后的左操作数若为true，则直接返回原始右操作数，若为false则直接返回原始左操作数
+	console.log(2&&4);//4
+	console.log(0&&4);//0
+	console.log({x:2}&&{name:"Jack"});//{name:"Jack"}
+	console.log(null&&"hello");//NULL
+	console.log({}&&"world");//world
+
+//对于||，转换后的左操作数若为true，则直接返回原始左操作数，若为false则直接返回原始右操作数
+	console.log(2||4);//2
+	console.log(0||4);//4
+	console.log({x:2}||{name:"Jack"});//{x:2}
+	console.log(null||"hello");//"hello"
+	console.log({}||"world");//{}
+
+//通过短路原则，可以用&&和|/|来实现复杂的条件语句来代替if-else
+	var score = 76;
+	if(score>90){
+	    console.log("优");
+	}else if(score>75){
+	    console.log("良");
+	}else if(score>60){
+	    console.log("及格");
+	}else{
+	    console.log("不及格");
+	}//良
+
+//通过&&和||的组合实现如上功能，注：小括号优先级最高
+	console.log((score>90&&"优")||(score>75&&"良")||(score>60&&"及格")||"不及格");//良
+
+//switch和case做的是全等判断值和类型必须都相等
+	function sum(x,y,z){
+		x=x;
+		y=y;
+		z=z;
+		return x+y+z;
+	}
+	console.log(sum());//NaN
+	function sum(x,y,z){
+		x=x;
+		y=y;
+		z=z;
+		return x+y+z;
+	}
+	console.log(sum(4,5,6));//15
+
+	// function sum1(x,y = z,z=3){
+	// 	return x-y+z;
+	// }
+	// console.log(sum1());//报错
+
+
+//函数的定义与调用
+
+//函数定义的方法（3种）
+//函数定义 函数声明方式（要有函数名）
+	function f1(a,b){
+	    return a+b;
+	}
+	console.log(f1(2,3));
+//函数定义 函数表达式方式 
+//等号右侧可以是匿名函数也可以是非匿名函数（有名的话方便调用栈追踪）
+	var f2 = function (a,b){ //匿名函数
+	    return a+b;
+	};
+	console.log(f2(2,3));
+// 通过Function构造函数实例化得到一个function
+//function实例化的函数，执行效率相对较低，但是更加灵活
+	var f3 = new Function("x","y","return x+y");
+	console.log(f3(2,3));
+</script>
+</html>

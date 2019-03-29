@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+//函数调用方式
+//1、作为函数直接调用（非严格模式下this为全局对象，严格模式下为undefined）
+//2、作为方法调用（this指向调用此方法的对象）
+	var obj = {
+		x : 0,
+		test:function(){
+			console.log(this.x);
+		}
+	}
+	obj.test();//0
+//3、通过call( )和apply( )间接调用（this为函数对象的call/apply方法的首个参数，移花接木。作为构造函数调用（this指向实例化出来的对象）
+	var objA = {"objname":"AAA"};
+	var objB = {"objname":"BBB"};
+	objA.foo = function(){
+		console.log(this.objname);
+	}
+	objA.foo();//AAA
+	objA.foo.call(objB);//BBB
+	//方法名.call(对象) 可以切换方法调用的对象
+//构造函数的调用
+	function Person(username){
+		this.username = username;
+	}
+	Person.prototype.sayHi = function(){
+		console.log(this.username);
+	}
+	var person = new Person("zhangsan");
+	console.log(Person.__proto__ == Person.prototype);
+//调用参数的数量的问题
+
+//JS函数调用时实参数量可以与形参不一致
+//实参数量大于形参的情况（通过函数对象属性arguments获得所有实参、类数组对象）
+	function test(){
+		var s = "";
+		for (var i = 0; i <arguments.length; i++) {
+			s += arguments[i]
+		}
+		console.log(s);
+	}
+	test("hello,","world","!");//hello,world!
+//实参数量小于形参的情况（少的参数值为undefined、可使用| |来给出默认值）
+	
+//不同类型的数据，参数传递方式不同（值传递、引用传递）
+
+//值传递
+//实参为基本数据类型时，形参改变不影响实参
+	var a = 2;
+	function foo(x){
+		x = 1;
+		console.log(a,x);
+	}
+	foo(a);//2 1
+	console.log(a);//2
+//引用传递
+//参为引用类型时，形参改变影响实参
+	var obj1 = {x : 0};
+	function bar(obj2){
+		obj2.x = 2;
+		console.log(obj1,obj2);
+	}
+	bar(obj1);
+</script>
+</html>

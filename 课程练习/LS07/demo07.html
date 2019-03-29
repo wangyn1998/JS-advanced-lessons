@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+//对象 instanceof 构造函数
+//1、判断这个对象能否使用后面构造的实例化得到
+//2、判断能否在对象的原型链上找到构造函数的prototype
+	function Person(username,age){
+		this.username = username;
+		this.age = age;
+	}
+	var person = new Person("zhangsan",20);
+	person instanceof Person;
+	console.log(person);//Person 对象
+	console.log(person.__proto__ == Person.prototype);//ture
+//判断能否在person的原型链上找到Object构造函数的prototype
+    console.log(person instanceof Object);//true
+    console.log(person.__proto__.__proto__);
+    console.log(Object.__proto__);
+
+    function fn1(x){
+    	//arguments获取函数调用时传入的实参，类数组结构
+    	for(var i = 0;i<arguments.length;i++){
+    		console.log(arguments[i]);
+    	}
+    	//hanshuming .length表示的是形参的个数
+    	console.log(fn1.length);
+    	//fn1.length
+    }
+    function fn2(){
+    	console.log(fn2.caller);
+    }
+    fn2();
+    function fn3(){
+    	fn2();
+    }
+    fn3();
+    var func = function(n){
+    	if(n <= 0)
+    		return 1;
+    	else
+    		//return n * func(n-1);
+    		return n * arguments.callee(n-1);
+    }
+    console.log(func(4));
+    var objA = {"objName":"AAA"};
+    var objB = {"objName":"BBB"};
+    objA.foo = function(){
+    	console.log(this.objName);
+    }
+    objA.foo();
+    //方法.call(对象)
+    objA.foo.call(objB);
+    //原本this指向使用Person1构造函数实例化得到的对象
+    function Person1(username,age){
+    	this.username = username;
+    	this.age = age;
+    	this.SayHi = function(){
+    		console.log(this.username);
+    	}
+    }
+    //Person1.call(this,username,age);
+    //其具有一个指定的this值和分别地提供的参的列表
+    function Student(username,age,sex){
+    	Person1.call(this,username,age);
+    	//Person.apply(this,[username,age])
+    	this.sex = sex;
+    }
+    var person1 = new Person1("zhangsan");
+    var student = new Student("list",20,"男");
+    console.log(student);
+
+
+    var objA1 = {
+    	"objName":"AAA",
+    	"foo":function(){
+    		console.log(this.objName);
+    	}
+    }
+    var objB = {"objName":"BBB"};
+    var foo2 = objA1.foo.bind(objB);
+    foo2();
+    var obj ={x:3};
+    function f1(){
+    	function f2(){
+    		console.log(this.x);
+    	}
+    	return f2;
+    }
+    obj.f3 = f1;
+    obj.f4 = f1();
+    obj.f3();
+    obj.f4();
+</script>
+</html>
