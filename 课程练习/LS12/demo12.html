@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	var obj = {
+		num:10,
+		str:"Hi",
+		show:function(){
+			console.log(this.str);
+		}
+	}
+	console.log(obj.num);//10
+	console.log(obj.str);//Hi
+	obj.show();//Hi
+
+	//对象instanceof构造函数
+	//1、判断对象能否使用该构造函数实例化得到
+	//2、判断对象的原型链上能够找到的构造函数的原型
+	//对象.__proto__.proto__(长度不确定) == 构造函数.instanceof
+	//var o = new Object();
+	console.log(Object instanceof Function);//true
+	console.log(Object.__proto__ ==Function.prototype);//true
+
+	//访问器属性
+	var o = {
+		_x:1.0,
+		get x(){
+			return this._X;
+		},
+		set x(val){
+			this._x = val;
+		}
+	};
+	console.log(o.x);
+	o.x = 2;
+	console.log(o.x,o.x);
+	//o.hasOwnProperty("x");//访问器属性
+	//o.hasOwnProperty("_x");//数据属性
+
+	//访问器属性
+	var o = {
+		_x:1.0,
+		get x(){
+			return this._x;
+		}
+	};
+	console.log(o.x);
+	o.x = 2;
+	console.log(o.x);
+	var obj = {
+		"x" : 1,
+		"y" : 2
+	}
+
+	//创建对象的三种方法
+	var z = "age";
+	obj[z] = 20;//obj.z = 20
+	console.log(obj);
+
+	var obj1 = {
+		"username":"zhangsan",
+		"age":20
+	};
+	var obj2 = Object.create(obj1);
+	console.log(obj2);
+
+	function Person(username,age){
+		this.username = username;
+		this.age = age; 
+	}
+	Person.prototype.sayHi = function(){
+		console.log(this.username);
+	}
+	var person1 = new Person("zhangsan",20);
+	console.log(person1.__proto__ == Person.prototype);
+	var person2 = new Person("list",18);
+	person1.sayHi();
+	person2.sayHi();
+	/*
+	1、
+	var obj1 = {
+	属性名:属性值,
+	方法名：方法
+	}
+
+	2、
+	var obj1 = {};
+	var obj2 = Object.creaate(obj1);
+
+	3、
+	function Person(){};
+	var person1 = new Person();
+	*/
+
+	var objProto = {z : 3};
+	var obj3 = Object.create(objProto);
+	obj3.x = 1;
+	obj3.y = 2;
+	console.log(obj3.x,obj3.y,obj3.z);
+	console.log(obj3.__proto__ == objProto);
+
+	
+</script>
+</html>
