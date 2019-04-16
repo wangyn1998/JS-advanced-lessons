@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	function foo(x){
+		var tmp = 3;
+		return function(y){
+			x.count = x.count ? x.count + 1 : 1;
+			console.log(x + y + tmp,x.count);
+		}
+	}
+	var age = new Number(2);
+	var bar = foo(age);
+	bar(10);//15 1
+	bar(10);//15 2<meta charset="UTF-8">
+	bar(10);//15 3
+
+//对象instanceof构造函数
+//1、判断对象能否使用该构造函数实例化得到
+//2、判断对象的原型链上能够找到的构造函数的原型
+//对象.__proto__.proto__(长度不确定) == 构造函数.instanceof
+	//var o = new Object();
+	console.log(Object instanceof Function);//true
+	console.log(Object.__proto__ == Function.prototype);//true
+	
+
+</script>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+</div>
+</body>
+<script type="text/javascript">
+	//立即执行函数
+	// (function(w,d){
+	// 	var spanList = d.getElementByTagName('span');
+	// 	var show = d.getElementByClassName('show')[0];
+	// 	for (var i = 0; i < spanList.length; i++) {
+	// 		function(j){
+	// 			spanList[i].onclick = function(){
+	// 				show.innerText = '导航' + i + '内容'
+	// 			}
+	// 		}
+	// 	}
+	// })(window,document)
+	for (var i = 0.; i < 3 ; i++) {
+		(function(j){
+			setTimeout(function(){
+				console.log(new Date,j);
+			},1000*i);
+		})(i);
+	}
+//闭包
+//通过返回函数(f1)内部定义的函数(f2)来访问f1内部的局部变量x
+	function f1(){
+		var x = 1;
+		function f2(){
+			return ++x;
+		}
+		return f2();
+	}
+	var f3 = f1();
+	//f1中的x变量是否被释放
+	console.log(f3);//2
+	console.log(f3);//2
+	function f1(){
+		var x = 1;
+		function f2(){
+			return ++x;
+		}
+		return f2;
+	}
+	var f3 = f1();
+	//f1中的x变量是否被释放
+	console.log(f3());//2
+	console.log(f3());//3
+//闭包：函数（addnum）内部定义的函数（return匿名函数）与其相关作用域中的变量形成的实体
+	function addnum(start){
+		return function(step){
+			start += step;
+			return start;
+		}
+	}
+	var fn3 = addnum(10);
+	console.log(fn3(1));//11
+	console.log(fn3(1));//12
+	console.log(fn3(1));//13
+
+	function foo(){
+		var i = 0;
+		function bar(){
+			console.log(++i);
+		}
+		return bar;
+	}
+	var fn1 = foo();
+	var fn2 = foo();
+	fn1();//1
+	fn1();//2
+	fn2();//1
+	fn1();//3
+	//外层数据每执行一次形成一次闭包
+//闭包带来的影响
+//1、闭包让我们可以访问到函数内部定义的变量
+//2、闭包让关联作用域中的特定变量保持在内存中，不释放
+</script>
+</html>
